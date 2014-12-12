@@ -14,7 +14,7 @@ import ch.webshop.resource.DrinkResource;
 public class App extends Application<WebShopConfiguration> {
 
 	public void initialize(Bootstrap<WebShopConfiguration> bootstrap) {
-		bootstrap.addBundle(new AssetsBundle("/src/main/webapp","/","index.html", null));
+		bootstrap.addBundle(new AssetsBundle("/assets", "/", "index.html"));
 	}
 
 	public void run(WebShopConfiguration configuration, Environment environment) throws Exception {
@@ -23,6 +23,8 @@ public class App extends Application<WebShopConfiguration> {
 		
 		environment.jersey().register(new FoodResource(jdbi));
 		environment.jersey().register(new DrinkResource(jdbi));
+
+		environment.jersey().setUrlPattern("/api/*");
 	}
 	
 	public static void main(String[] args) throws Exception {
