@@ -22,20 +22,15 @@ webshopApp.config(['$routeProvider',
     $resourceProvider.defaults.stripTrailingSlashes = false;
   }]);
 
-webshopApp.factory('FoodFactory', function($http){
-    return {
-        getFood: function() {
-            var url = "http://localhost:8080/food/1"
-            $http.jsonp(url)
-                .success(function(data){
-                    console.log(data.found);
-                });
-        }
-    };
+webshopApp.factory('FoodFactory', function($resource){
+    var url = '/api/food/:id';
+    return $resource(url);
 });
 
 webshopApp.controller('WebShopController',function($scope, FoodFactory){
-
+    $scope.food = FoodFactory.get({id: 1}, function() {
+        console.log(food);
+    });
 });
 
 

@@ -30,7 +30,7 @@ public class DrinkResource {
     }
 
     @POST
-    public @Nonnull Response createDrink(@Valid @Nonnull final Drink Drink) throws URISyntaxException {
+    public Response createDrink(final Drink Drink) throws URISyntaxException {
         final long newDrinkId = drinkDAO.createDrink(Drink.getId(), Drink.getDescription(), Drink.getPrice());
         return Response.created(new URI(String.valueOf(newDrinkId))).build();
     }
@@ -42,7 +42,7 @@ public class DrinkResource {
 
     @GET
     @Path("/{id}")
-    public @Nonnull Response readDrink(@PathParam("id") @Nonnull final int id) {
+    public Response readDrink(@PathParam("id") final int id) {
         final Drink Drink = drinkDAO.readDrinkById(id);
         if (Drink == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -52,7 +52,7 @@ public class DrinkResource {
 
     @DELETE
     @Path("/{id}")
-    public @Nonnull Response deleteDrink(@PathParam("id") @Nonnull final int id) {
+    public Response deleteDrink(@PathParam("id") final int id) {
     	if (drinkDAO.readDrinkById(id) == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
