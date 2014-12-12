@@ -2,6 +2,7 @@ package ch.webshop.resource;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.validation.Valid;
@@ -26,6 +27,11 @@ public class FoodResource {
 
     public FoodResource(@Nonnull final DBI dbi) {
         foodDAO = dbi.onDemand(FoodDAO.class);
+    }
+
+    @GET
+    public List<Food> getFoodList() {
+        return foodDAO.getAll();
     }
 
     @POST

@@ -1,4 +1,4 @@
-var webshopApp = angular.module('webshopApp', ['ngRoute']);
+var webshopApp = angular.module('webshopApp', ['ngRoute','ngResource']);
 
 webshopApp.config(['$routeProvider',
   function($routeProvider) {
@@ -18,12 +18,26 @@ webshopApp.config(['$routeProvider',
      .otherwise({
         redirectTo: '/'
       });
+  }],['$resourceProvider', function($resourceProvider) {
+    $resourceProvider.defaults.stripTrailingSlashes = false;
   }]);
 
-var controllers = {};
-controllers.WebShopController = function($scope) {
+webshopApp.factory('FoodFactory', function($http){
+    return {
+        getFood: function() {
+            var url = "http://localhost:8080/food/1"
+            $http.jsonp(url)
+                .success(function(data){
+                    console.log(data.found);
+                });
+        }
+    };
+});
 
-};
+webshopApp.controller('WebShopController',function($scope, FoodFactory){
 
-webshopApp.controller(controllers);
+});
+
+
+
 

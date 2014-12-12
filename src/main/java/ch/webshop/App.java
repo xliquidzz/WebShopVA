@@ -1,6 +1,7 @@
 package ch.webshop;
 
 import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -13,11 +14,10 @@ import ch.webshop.resource.DrinkResource;
 public class App extends Application<WebShopConfiguration> {
 
 	public void initialize(Bootstrap<WebShopConfiguration> bootstrap) {
-		
+		bootstrap.addBundle(new AssetsBundle("/src/main/webapp","/","index.html", null));
 	}
 
-	public void run(WebShopConfiguration configuration, Environment environment)
-			throws Exception {
+	public void run(WebShopConfiguration configuration, Environment environment) throws Exception {
 		final DBIFactory factory = new DBIFactory();
 		final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "mysql");
 		
