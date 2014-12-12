@@ -2,6 +2,7 @@ package ch.webshop.resource;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.validation.Valid;
@@ -22,22 +23,27 @@ import ch.webshop.representation.Drink;
 @Path("/drink")
 @Produces(MediaType.APPLICATION_JSON)
 public class DrinkResource {
-    private final DrinkDAO DrinkDAO;
+    private final DrinkDAO drinkDAO;
 
     public DrinkResource(@Nonnull final DBI dbi) {
-        DrinkDAO = dbi.onDemand(DrinkDAO.class);
+        drinkDAO = dbi.onDemand(DrinkDAO.class);
     }
 
     @POST
     public @Nonnull Response createDrink(@Valid @Nonnull final Drink Drink) throws URISyntaxException {
-        final long newDrinkId = DrinkDAO.createDrink(Drink.getId(), Drink.getDescription(), Drink.getPrice());
+        final long newDrinkId = drinkDAO.createDrink(Drink.getId(), Drink.getDescription(), Drink.getPrice());
         return Response.created(new URI(String.valueOf(newDrinkId))).build();
+    }
+
+    @GET
+    public List<Drink> getFoodList() {
+        return drinkDAO.getAll();
     }
 
     @GET
     @Path("/{id}")
     public @Nonnull Response readDrink(@PathParam("id") @Nonnull final int id) {
-        final Drink Drink = DrinkDAO.readDrinkById(id);
+        final Drink Drink = drinkDAO.readDrinkById(id);
         if (Drink == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
@@ -47,10 +53,10 @@ public class DrinkResource {
     @DELETE
     @Path("/{id}")
     public @Nonnull Response deleteDrink(@PathParam("id") @Nonnull final int id) {
-    	if (DrinkDAO.readDrinkById(id) == null) {
+    	if (drinkDAO.readDrinkById(id) == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-    	DrinkDAO.deleteDrinkById(id);
+    	drinkDAO.deleteDrinkById(id);
     	return Response.noContent().build();
     }
 }
