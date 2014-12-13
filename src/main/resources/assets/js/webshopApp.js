@@ -27,13 +27,10 @@ webshopApp.factory('Food', function($resource){
     return $resource(url);
 });
 
-webshopApp.factory('FoodList', function($resource){
-    var url = '/api/food';
-    return $resource(url);
-});
+webshopApp.controller('WebShopController',function($scope, $resource, Food){
+    var FoodList = $resource('/api/food');
+    $scope.foodList = FoodList.query();
 
-webshopApp.controller('WebShopController',function($scope, Food, FoodList){
-    $scope.foodList = FoodList.get();
     $scope.food = Food.get({id: 1});
 });
 
