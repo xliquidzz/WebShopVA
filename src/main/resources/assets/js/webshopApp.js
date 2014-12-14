@@ -27,13 +27,31 @@ webshopApp.factory('Food', function($resource){
     return $resource(url);
 });
 
-webshopApp.controller('WebShopController',function($scope, $resource, Food){
+webshopApp.factory('ArticleService', function() {
+    return {
+        articleList : [],
+        sum: 0.0
+    };
+});
+
+webshopApp.controller('WebShopController', function($scope, $resource, Food, ArticleService){
     var FoodList = $resource('/api/food');
     $scope.foodList = FoodList.query();
 
     $scope.food = Food.get({id: 1});
-});
 
+    $scope.articles = ArticleService.articleList;
+
+    $scope.addArticle = function(article) {
+        ArticleService.articleList.push({
+            articleDescription: article.description,
+            articlePrice: article.price
+        });
+        ArticleService.sum = article.price + ArticleService.sum;
+    };
+
+    $scope.sum = ArticleService.sum;
+});
 
 
 

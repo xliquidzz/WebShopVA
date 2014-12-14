@@ -9,7 +9,7 @@
 </head>
 <body>
 <div ng-controller="WebShopController">
-    <nav class="navbar navbar-default" role="navigation">
+    <nav class="navbar navbar-default menu" role="navigation">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for b11etter mobile display -->
             <div class="navbar-header">
@@ -21,7 +21,6 @@
                 </button>
                 <a class="navbar-brand" href="./">Web Shop</a>
             </div>
-
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
@@ -31,9 +30,24 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
-
-    <div ng-view></div>
+    <div class="shopping-cart-list">
+        <div class="list-group">
+            <a href="#" class="list-group-item disabled">
+                Shopping Cart:
+            </a>
+            <div ng-repeat="art in articles">
+                <a  href="#" class="list-group-item">
+                    {{art.articleDescription + " " + art.articlePrice}}$
+                </a>
+            </div>
+            <a href="#" class="list-group-item disabled">
+                Summe: {{summe}}$
+            </a>
+        </div>
+    </div>
+    <button ng-click="addArticle({description:'test', price:1.0})">addArticle</button>
 </div>
+<div ng-view></div>
 
 <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="js/libs/angular.min.js"></script>
@@ -41,8 +55,12 @@
 <script type="text/javascript" src="js/libs/angular-resource.js"></script>
 <script type="text/javascript" src="js/libs/bootstrap.js"></script>
 <script type="text/javascript" src="js/webshopApp.js"></script>
+
+<!--
 <script type="text/javascript" src="js/controllers.js"></script>
 <script type="text/javascript" src="js/routes.js"></script>
 <script type="text/javascript" src="js/services.js"></script>
+-->
+
 </body>
 </html>
