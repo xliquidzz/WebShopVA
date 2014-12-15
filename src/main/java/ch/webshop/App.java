@@ -8,8 +8,8 @@ import io.dropwizard.setup.Environment;
 
 import org.skife.jdbi.v2.DBI;
 
-import ch.webshop.resource.FoodResource;
-import ch.webshop.resource.DrinkResource;
+import ch.webshop.resource.ArticleResource;
+import ch.webshop.resource.CategoryResource;
 
 public class App extends Application<WebShopConfiguration> {
 
@@ -20,10 +20,9 @@ public class App extends Application<WebShopConfiguration> {
 	public void run(WebShopConfiguration configuration, Environment environment) throws Exception {
 		final DBIFactory factory = new DBIFactory();
 		final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "mysql");
-		
-		environment.jersey().register(new FoodResource(jdbi));
-		environment.jersey().register(new DrinkResource(jdbi));
 
+		environment.jersey().register(new CategoryResource(jdbi));
+		environment.jersey().register(new ArticleResource(jdbi));
 		environment.jersey().setUrlPattern("/api/*");
 	}
 	

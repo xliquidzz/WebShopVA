@@ -1,0 +1,18 @@
+<div ng-repeat="art in articles">
+    <div class="article">
+        <div class="article-info">
+            Name: {{art.name}} <br/>
+            Price: {{art.price}}$
+        </div>
+        <div class="article-btn-group">
+            <div class="btn-group btn-group-sm" role="group">
+                <button type="button" ng-click="addArticle(art)" class="btn btn-default">
+                    <span class="glyphicon glyphicon-shopping-cart"> </span>
+                </button>
+                <button type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-info-sign"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

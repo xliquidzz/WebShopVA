@@ -24,8 +24,9 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="#/food">Food</a></li>
-                    <li><a href="#/drinks">Drinks</a></li>
+                    <li ng-repeat="c in categories">
+                        <a ng-href="#/category/{{c.name | lowercase}}">{{c.name}}</a>
+                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -35,17 +36,17 @@
             <a href="#" class="list-group-item disabled">
                 Shopping Cart:
             </a>
-            <div ng-repeat="art in articles">
+            <div ng-repeat="shoppingCartArticle in shoppingCart">
                 <a  href="#" class="list-group-item">
-                    {{art.articleDescription + " " + art.articlePrice}}$
+                    {{shoppingCartArticle.name + " " + shoppingCartArticle.price}}$
                 </a>
             </div>
             <a href="#" class="list-group-item disabled">
-                Summe: {{summe}}$
+                Summe: {{sum}} $
             </a>
         </div>
     </div>
-    <button ng-click="addArticle({description:'test', price:1.0})">addArticle</button>
+    <!--<button ng-click="addArticle({name:'test', price:1.0})">addArticle</button>-->
 </div>
 <div ng-view></div>
 
@@ -56,11 +57,9 @@
 <script type="text/javascript" src="js/libs/bootstrap.js"></script>
 <script type="text/javascript" src="js/webshopApp.js"></script>
 
-<!--
-<script type="text/javascript" src="js/controllers.js"></script>
-<script type="text/javascript" src="js/routes.js"></script>
-<script type="text/javascript" src="js/services.js"></script>
--->
 
+<!--<script type="text/javascript" src="js/controllers.js"></script>
+<script type="text/javascript" src="js/routes.js"></script>
+<script type="text/javascript" src="js/services.js"></script> -->
 </body>
 </html>

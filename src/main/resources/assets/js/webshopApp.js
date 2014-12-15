@@ -2,19 +2,22 @@ var webshopApp = angular.module('webshopApp', ['ngRoute','ngResource']);
 
 webshopApp.config(['$routeProvider',
   function($routeProvider) {
-    $routeProvider
-   	 .when('/', {
-        templateUrl: 'partials/start.html',
+     $routeProvider
+     .when('/', {
+       templateUrl: 'partials/start.html',
+       controller: 'WebShopController'
+     })
+     .when('/admin', {
+        templateUrl: 'partials/admin.html',
         controller: 'WebShopController'
-      })
-     .when('/food', {
-        templateUrl: 'partials/food.html',
-        controller: 'WebShopController'
-      })
-     .when('/drinks', {
-        templateUrl: 'partials/drinks.html',
-        controller: 'WebShopController'
-      })
+     })
+     .when('/category/:name', {
+         templateUrl: function($scope, urlattr){
+            $scope.category = urlattr;
+            return '/partials/articles.html';
+         },
+         controller: 'WebShopController'
+     })
      .otherwise({
         redirectTo: '/'
       });
@@ -22,36 +25,43 @@ webshopApp.config(['$routeProvider',
     $resourceProvider.defaults.stripTrailingSlashes = false;
   }]);
 
-webshopApp.factory('Food', function($resource){
-    var url = '/api/food/:id';
-    return $resource(url);
+webshopApp.factory('CategoryListFactory', function($resource) {
+    var resource = $resource('/api/category');
+    return resource.query();
 });
 
-webshopApp.factory('ArticleService', function() {
+webshopApp.factory('ArticleFactory', function($resource) {
+    var resource = $resource('/api/article  ');
+    return resource.query();
+});
+
+webshopApp.factory('ShoppingCart', function() {
     return {
-        articleList : [],
+        shoppingList: [],
         sum: 0.0
     };
 });
 
-webshopApp.controller('WebShopController', function($scope, $resource, Food, ArticleService){
-    var FoodList = $resource('/api/food');
-    $scope.foodList = FoodList.query();
+webshopApp.controller('WebShopController', function($scope, CategoryListFactory, ArticleFactory, ShoppingCart){
 
-    $scope.food = Food.get({id: 1});
+    $scope.sum = ShoppingCart.sum;
 
-    $scope.articles = ArticleService.articleList;
+    $scope.shoppingCart = ShoppingCart.shoppingList;
+
+    $scope.categories = CategoryListFactory;
+
+    $scope.articles = ArticleFactory;
 
     $scope.addArticle = function(article) {
-        ArticleService.articleList.push({
-            articleDescription: article.description,
-            articlePrice: article.price
+        ShoppingCart.shoppingList.push({
+            name: article.name,
+            price: article.price
         });
-        ArticleService.sum = article.price + ArticleService.sum;
+        ShoppingCart.sum = article.price + ShoppingCartService.sum;
     };
-
-    $scope.sum = ArticleService.sum;
 });
+
+
 
 
 

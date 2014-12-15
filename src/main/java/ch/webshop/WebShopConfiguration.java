@@ -18,11 +18,11 @@ public class WebShopConfiguration extends Configuration {
 	public DataSourceFactory getDataSourceFactory() {
 		return database;
 	}
-	
+
 	public String getMessage() {
 		return message;
 	}
-	
+
 	public int getMessageRepetitions() {
 		return messageRepetitions;
 	}
