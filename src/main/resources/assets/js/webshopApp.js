@@ -57,7 +57,8 @@ webshopApp.controller('WebShopController', function($scope, CategoryListFactory,
             name: article.name,
             price: article.price
         });
-        ShoppingCart.sum = article.price + ShoppingCartService.sum;
+        ShoppingCart.sum = article.price + ShoppingCart.sum;
+        $scope.sum = ShoppingCart.sum;
     };
 });
 
