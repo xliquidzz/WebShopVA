@@ -55,9 +55,7 @@ webshopApp.controller('WebShopController', function($scope,$rootScope,CategoryLi
 
     $scope.categories = CategoryListFactory;
 
-    $scope.$watch(function () {return ArticleFactory}, function (newVal, oldVal) {
-            $scope.articles = ArticleFactory;
-    });
+    $scope.articles = ArticleFactory;
 
     $scope.addArticleToShoppingList = function(article) {
         ShoppingCart.shoppingList.push({
@@ -65,6 +63,10 @@ webshopApp.controller('WebShopController', function($scope,$rootScope,CategoryLi
             price: article.price
         });
         $rootScope.sum = $rootScope.sum + article.price;
+    };
+
+    $scope.removeArticleFromShoppingCart = function(index) {
+        ShoppingCart.shoppingList.splice(index, 1);
     };
 });
 
