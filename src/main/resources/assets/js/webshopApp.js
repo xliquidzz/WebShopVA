@@ -29,13 +29,26 @@ webshopApp.factory('CategoryListFactory', function($resource) {
     return resource.query();
 });
 
-webshopApp.factory('ArticleFactory', function($rootScope, $resource, $routeParams) {
-    $rootScope.currentCategory = $routeParams.currentCategory;
-    var url = '/api/article/category/';
-    if( $rootScope.currentCategory != null) {
-        url = url + $rootScope.currentCategory;
+webshopApp.factory('ArticleFactory', function ($rootScope, $resource, $routeParams) {
+
+    var articles = [];
+
+    function getArticles() {
+        $rootScope.currentCategory = $routeParams.currentCategory;
+        var url = '/api/article/category/';
+        if(typeof($rootScope.currentCategory) != "undefined") {
+            url = url + $rootScope.currentCategory;
+        }
+        var resource = $resource(url);
+        $rootScope.articles = resource.query();
     }
-    return $resource(url).query();
+
+    getArticles();
+
+    return {
+        articles: articles,
+        getArticles: getArticles
+    };
 });
 
 webshopApp.factory('ShoppingCart', function() {
@@ -51,11 +64,12 @@ webshopApp.controller('WebShopController', function($scope,$rootScope,CategoryLi
     } else if ($rootScope.currentCategory == null) {
         $rootScope.currentCategory = 'food';
     }
+
+    ArticleFactory.getArticles();
+
     $scope.shoppingCart = ShoppingCart.shoppingList;
 
     $scope.categories = CategoryListFactory;
-
-    $scope.articles = ArticleFactory;
 
     $scope.addArticleToShoppingList = function(article) {
         ShoppingCart.shoppingList.push({
@@ -66,6 +80,7 @@ webshopApp.controller('WebShopController', function($scope,$rootScope,CategoryLi
     };
 
     $scope.removeArticleFromShoppingCart = function(index) {
+        $rootScope.sum = $rootScope.sum - ShoppingCart.shoppingList[index].price;
         ShoppingCart.shoppingList.splice(index, 1);
     };
 });
