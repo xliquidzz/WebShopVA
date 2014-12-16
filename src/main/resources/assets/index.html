@@ -31,18 +31,18 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
-    <div class="shopping-cart-list" id="full">
+    <div class="shopping-cart-list">
         <div class="list-group">
             <a href="#" class="list-group-item disabled">
                 Shopping Cart:
             </a>
             <div ng-repeat="shoppingCartArticle in shoppingCart">
-                <a  href="#" class="list-group-item">
-                    {{shoppingCartArticle.name + " " + shoppingCartArticle.price}}$
+                    <a  href="#" class="list-group-item">
+                    {{shoppingCartArticle.name + " " }} {{shoppingCartArticle.price | number: 2}}$
                 </a>
             </div>
             <a href="#" class="list-group-item disabled">
-                Summe: {{sum}} $
+                Summe: {{sum | number:2}} $
             </a>
         </div>
     </div>
@@ -56,7 +56,6 @@
 <script type="text/javascript" src="js/libs/angular-resource.js"></script>
 <script type="text/javascript" src="js/libs/bootstrap.js"></script>
 <script type="text/javascript" src="js/webshopApp.js"></script>
-
 
 <!--<script type="text/javascript" src="js/controllers.js"></script>
 <script type="text/javascript" src="js/routes.js"></script>

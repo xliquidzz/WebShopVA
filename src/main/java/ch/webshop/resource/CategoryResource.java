@@ -4,7 +4,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -24,7 +23,7 @@ import ch.webshop.representation.Category;
 public class CategoryResource {
     private final CategoryDAO categoryDAO;
 
-    public CategoryResource(@Nonnull final DBI dbi) {
+    public CategoryResource(final DBI dbi) {
         categoryDAO = dbi.onDemand(CategoryDAO.class);
     }
 

@@ -32,6 +32,12 @@ public class ArticleResource {
         return articleDAO.getAll();
     }
 
+    @GET
+    @Path("/category")
+    public List<Article> getStartArticles() {
+        return articleDAO.getAll();
+    }
+
     @POST
     public Response createFood(final Article article) throws URISyntaxException {
         final long newFoodId = articleDAO.createArticle(article.getId(), article.getCategoryId(), article.getName(), article.getPrice());
@@ -59,8 +65,8 @@ public class ArticleResource {
     }
 
     @GET
-    @Path("/category/{categoryName}")
-    public Response readArticlesByCategoryName(@PathParam("categoryName") final String categoryName) {
+     @Path("/category/{categoryName}")
+     public Response readArticlesByCategoryName(@PathParam("categoryName") final String categoryName) {
         List<Article> articles = articleDAO.readArticlesByCategoryName(categoryName);
         if (articleDAO.readArticlesByCategoryName(categoryName) == null) {
             return Response.status(Response.Status.NOT_FOUND).build();

@@ -1,5 +1,7 @@
 var webshopApp = angular.module('webshopApp', ['ngRoute','ngResource']);
 
+webshopApp.value('currentCategory','food')
+
 webshopApp.config(['$routeProvider',
   function($routeProvider) {
      $routeProvider
@@ -11,11 +13,8 @@ webshopApp.config(['$routeProvider',
         templateUrl: 'partials/admin.html',
         controller: 'WebShopController'
      })
-     .when('/category/:name', {
-         templateUrl: function($scope, urlattr){
-            $scope.category = urlattr;
-            return '/partials/articles.html';
-         },
+     .when('/category/:currentCategory', {
+         templateUrl: '/partials/articles.html',
          controller: 'WebShopController'
      })
      .otherwise({
@@ -30,35 +29,42 @@ webshopApp.factory('CategoryListFactory', function($resource) {
     return resource.query();
 });
 
-webshopApp.factory('ArticleFactory', function($resource) {
-    var resource = $resource('/api/article  ');
-    return resource.query();
+webshopApp.factory('ArticleFactory', function($rootScope, $resource, $routeParams) {
+    $rootScope.currentCategory = $routeParams.currentCategory;
+    var url = '/api/article/category/';
+    if( $rootScope.currentCategory != null) {
+        url = url + $rootScope.currentCategory;
+    }
+    return $resource(url).query();
 });
 
 webshopApp.factory('ShoppingCart', function() {
     return {
-        shoppingList: [],
-        sum: 0.0
+        shoppingList: []
     };
 });
 
-webshopApp.controller('WebShopController', function($scope, CategoryListFactory, ArticleFactory, ShoppingCart){
+webshopApp.controller('WebShopController', function($scope,$rootScope,CategoryListFactory, ShoppingCart, ArticleFactory){
 
-    $scope.sum = ShoppingCart.sum;
-
+    if(ShoppingCart.shoppingList.length == 0){
+        $rootScope.sum = 0;
+    } else if ($rootScope.currentCategory == null) {
+        $rootScope.currentCategory = 'food';
+    }
     $scope.shoppingCart = ShoppingCart.shoppingList;
 
     $scope.categories = CategoryListFactory;
 
-    $scope.articles = ArticleFactory;
+    $scope.$watch(function () {return ArticleFactory}, function (newVal, oldVal) {
+            $scope.articles = ArticleFactory;
+    });
 
-    $scope.addArticle = function(article) {
+    $scope.addArticleToShoppingList = function(article) {
         ShoppingCart.shoppingList.push({
             name: article.name,
             price: article.price
         });
-        ShoppingCart.sum = article.price + ShoppingCart.sum;
-        $scope.sum = ShoppingCart.sum;
+        $rootScope.sum = $rootScope.sum + article.price;
     };
 });
 

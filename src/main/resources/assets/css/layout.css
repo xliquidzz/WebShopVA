@@ -1,9 +1,18 @@
 html,body { height: 100%; margin: 0px; padding: 0px; }
+    .shopping-cart-list {
+        float: right;
+        width: 250px;
+        height: 100%;
+    }
 
-.shopping-cart-list {
-    float: right;
-    width: 250px;
-    height: 100%;
+@media screen and (max-width: 600px){
+    .shopping-cart-list {
+        display: none;
+    }
+
+    .content{
+        width:100%;
+    }
 }
 
 .article {

@@ -13,8 +13,6 @@
                 ng-click="togglePersonForm()">Hide person form</button>
     </div>
 
-
-
     <div ng-show="personForm.show">
         <form class="form-inline" ng-submit="savePerson(personForm.person)">
             <input type="text" class="span3" placeholder="Name" ng-model="personForm.person.name">
