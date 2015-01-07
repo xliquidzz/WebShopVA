@@ -1,22 +1,24 @@
-<div class="panel panel-default content">
+<div class="panel panel-default">
     <div class="panel-body">
-<div ng-repeat="art in articles">
-    <div class="article">
-        <div class="article-info">
-            Name: {{art.name}} <br/>
-            Price: {{art.price | number: 2}}$
-        </div>
-        <div class="article-btn-group">
-            <div class="btn-group btn-group-sm" role="group">
-                <button type="button" ng-click="addArticleToShoppingList(art)" class="btn btn-default">
-                    <span class="glyphicon glyphicon-shopping-cart"> </span>
-                </button>
-                <button type="button" class="btn btn-default">
-                    <span class="glyphicon glyphicon-info-sign"></span>
-                </button>
+        <div ng-repeat="art in articles">
+            <div class="col-md-6">
+                <div class="article">
+                    <div class="article-info">
+                        Name: {{art.name}} <br/>
+                        Price: {{art.price | number: 2}}$
+                    </div>
+                    <div class="article-btn-group">
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button type="button" ng-click="addArticleToShoppingList(art)" class="btn btn-default">
+                                <span class="glyphicon glyphicon-shopping-cart"> </span>
+                            </button>
+                            <button type="button" class="btn btn-default">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
     </div>
 </div>

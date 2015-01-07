@@ -33,7 +33,7 @@ public class ArticleResource {
     }
 
     @GET
-    @Path("/category")
+    @Path("/category") 
     public List<Article> getStartArticles() {
         return articleDAO.getAll();
     }

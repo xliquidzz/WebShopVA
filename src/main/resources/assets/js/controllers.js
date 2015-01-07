@@ -1,29 +1,29 @@
-var controllers = angular.module('webshop.controllers', []);
+app.controller('WebShopController', function($scope,$rootScope,CategoryListFactory, ShoppingCart, ArticleFactory){
 
-controllers.controller('FoodController', function($scope, $resource, Food, FoodList){
-    $scope.foodList = FoodList;
+    if(ShoppingCart.shoppingList.length == 0){
+        $rootScope.sum = 0;
+    } else if ($rootScope.currentCategory == null) {
+        $rootScope.currentCategory = 'food';
+    }
 
-    $scope.food = Food;
-});
+    ArticleFactory.getArticles();
 
-controllers.controller('ArticleController', function($scope, Article, ArticleList){
-    $scope.articleList = ArticleList;
+    $scope.shoppingCart = ShoppingCart.shoppingList;
 
-    $scope.article = Article;
+    $scope.categories = CategoryListFactory;
 
-    $scope.test = 'test';
-});
-
-controllers.controller('ShoppingCartController', function ($scope, ArticleService,){
-    $scope.articles = ArticleService.articleList;
-
-    $scope.addArticle = function(article) {
-        ArticleService.articleList.push({
-            articleDescription: article.description,
-            articlePrice: article.price
+    $scope.addArticleToShoppingList = function(article) {
+        ShoppingCart.shoppingList.push({
+            name: article.name,
+            price: article.price
         });
-        ArticleService.sum = article.price + ArticleService.sum;
+        $rootScope.sum = $rootScope.sum + article.price;
     };
 
-    $scope.sum = ArticleService.sum;
-}):
+    $scope.removeArticleFromShoppingCart = function(index) {
+        $rootScope.sum = $rootScope.sum - ShoppingCart.shoppingList[index].price;
+        ShoppingCart.shoppingList.splice(index, 1);
+    };
+
+    $scope.allArticles = allArticles();
+});
