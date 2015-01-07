@@ -1,29 +1,23 @@
-app.controller('WebShopController', function($scope,$rootScope,CategoryListFactory, ShoppingCart, ArticleFactory){
+app.controller('WebShopController', function($scope, articleService, categoryService, shoppingCartService){
 
-    if(ShoppingCart.shoppingList.length == 0){
-        $rootScope.sum = 0;
-    } else if ($rootScope.currentCategory == null) {
-        $rootScope.currentCategory = 'food';
-    }
+    $scope.sum = shoppingCartService.sum;
 
-    ArticleFactory.getArticles();
+    $scope.currentCategory = categoryService.currentCategory();
 
-    $scope.shoppingCart = ShoppingCart.shoppingList;
+    $scope.articles = articleService.currentArticles();
 
-    $scope.categories = CategoryListFactory;
+    $scope.categories = categoryService.allCategories();
 
-    $scope.addArticleToShoppingList = function(article) {
-        ShoppingCart.shoppingList.push({
-            name: article.name,
-            price: article.price
-        });
-        $rootScope.sum = $rootScope.sum + article.price;
+    $scope.shoppingCartArticles = shoppingCartService.shoppingCartArticles;
+
+    $scope.addArticleToShoppingCart = function(art) {
+        shoppingCartService.addArticleToShoppingCart(art);
+        $scope.sum = shoppingCartService.sum;
     };
 
     $scope.removeArticleFromShoppingCart = function(index) {
-        $rootScope.sum = $rootScope.sum - ShoppingCart.shoppingList[index].price;
-        ShoppingCart.shoppingList.splice(index, 1);
+        shoppingCartService.removeArticleFromShoppingCart(index);
+        $scope.sum = shoppingCartService.sum;
     };
-
-    $scope.allArticles = allArticles();
 });
+

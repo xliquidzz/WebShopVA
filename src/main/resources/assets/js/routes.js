@@ -13,6 +13,13 @@ app.config(['$routeProvider',
          templateUrl: '/partials/articles.html',
          controller: 'WebShopController'
      })
+     .when('/shoppingcart', {
+        templateUrl: '/partials/shoppingcart.html',
+        controller: 'WebShopController'
+     }).when('#/article/:articleId', {
+           templateUrl: '/partials/article.html',
+           controller: 'WebShopController'
+        })
      .otherwise({
         redirectTo: '/'
       });

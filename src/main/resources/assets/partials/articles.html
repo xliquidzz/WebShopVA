@@ -1,18 +1,21 @@
-<div class="panel panel-default">
-    <div class="panel-body">
-        <div ng-repeat="art in articles">
-            <div class="col-md-6">
-                <div class="article">
-                    <div class="article-info">
-                        Name: {{art.name}} <br/>
-                        Price: {{art.price | number: 2}}$
-                    </div>
-                    <div class="article-btn-group">
-                        <div class="btn-group btn-group-sm" role="group">
-                            <button type="button" ng-click="addArticleToShoppingList(art)" class="btn btn-default">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-4" ng-repeat="art in articles">
+            <div class="thumbnail">
+                <h3>Name: {{art.name}}</h3>
+                <div class="caption">
+                    Price: {{art.price | number: 2}}$          <br/>
+                    Id: {{art.id}}
+                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default" ng-click="addArticleToShoppingCart(art)">
+                                To ShoppingCart
                                 <span class="glyphicon glyphicon-shopping-cart"> </span>
                             </button>
-                            <button type="button" class="btn btn-default">
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default" ng-href="#/article/ {{art.id}}">
+                                Details
                                 <span class="glyphicon glyphicon-info-sign"></span>
                             </button>
                         </div>
@@ -22,3 +25,9 @@
         </div>
     </div>
 </div>
+
+
+
+
+
+

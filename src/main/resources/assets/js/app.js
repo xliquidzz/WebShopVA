@@ -1,7 +1,5 @@
 var app = angular.module('webshopApp', ['ngRoute','ngResource']);
 
-
-
 /*
 webshopApp.factory('ArticleFactory', function ($rootScope, $resource, $routeParams) {
 
