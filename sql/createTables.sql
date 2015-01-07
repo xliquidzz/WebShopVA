@@ -19,6 +19,8 @@ CREATE TABLE article (
 INSERT INTO category(id,name) VALUES(null,"Food");
 INSERT INTO category(id,name) VALUES(null,"Drink");
 INSERT INTO category(id,name) VALUES(null,"Clothes");
+INSERT INTO category(id,name) VALUES(null,"Toys");
+
 
 INSERT INTO article(id, category_id, name, price) VALUES(null, (SELECT id from category WHERE name='Clothes'), 'T-Shirt', 25.50);
 INSERT INTO article(id,category_id, name, price) VALUES(null, (SELECT id from category WHERE name='Clothes'), 'Pants', 75.50);
@@ -32,3 +34,9 @@ INSERT INTO article(id, category_id, name, price) VALUES(null, (SELECT id from c
 INSERT INTO article(id, category_id, name, price) VALUES(null, (SELECT id from category WHERE name='Food'), 'Spaghetti', 5.2);
 INSERT INTO article(id, category_id, name, price) VALUES(null, (SELECT id from category WHERE name='Food'), 'Steak', 28.40);
 INSERT INTO article(id, category_id, name, price) VALUES(null, (SELECT id from category WHERE name='Food'), 'Risotto', 12.0);
+
+
+INSERT INTO article(id, category_id, name, price) VALUES(null, (SELECT id from category WHERE name='Toys'), 'Hot wheel', 5.2);
+INSERT INTO article(id, category_id, name, price) VALUES(null, (SELECT id from category WHERE name='Toys'), 'Hot wheel', 5.2);
+INSERT INTO article(id, category_id, name, price) VALUES(null, (SELECT id from category WHERE name='Toys'), 'Hot wheel', 5.2);
+INSERT INTO article(id, category_id, name, price) VALUES(null, (SELECT id from category WHERE name='Toys'), 'Hot wheel', 5.2);

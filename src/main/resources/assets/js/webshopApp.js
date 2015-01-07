@@ -11,7 +11,7 @@ webshopApp.config(['$routeProvider',
      })
      .when('/admin', {
         templateUrl: 'partials/admin.html',
-        controller: 'WebShopController'
+        controller: 'AdminController'
      })
      .when('/category/:currentCategory', {
          templateUrl: '/partials/articles.html',
@@ -84,8 +84,6 @@ webshopApp.controller('WebShopController', function($scope,$rootScope,CategoryLi
         ShoppingCart.shoppingList.splice(index, 1);
     };
 });
-
-
 
 
 

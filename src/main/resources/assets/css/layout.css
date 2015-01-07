@@ -1,3 +1,5 @@
+@import url(../../components/bootstrap-3.1.1/css/bootstrap.css);
+
 html,body { height: 100%; margin: 0px; padding: 0px; }
     .shopping-cart-list {
         float: right;
@@ -5,7 +7,8 @@ html,body { height: 100%; margin: 0px; padding: 0px; }
         height: 100%;
     }
 
-@media screen and (max-width: 600px){
+
+@media screen and (max-width: 690px){
     .shopping-cart-list {
         display: none;
     }
@@ -13,6 +16,14 @@ html,body { height: 100%; margin: 0px; padding: 0px; }
     .content{
         width:100%;
     }
+
+    .hide-me {
+        display: none:
+    }
+}
+
+.hide-me {
+    display: none;
 }
 
 .article {
